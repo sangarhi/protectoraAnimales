@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:fragment="head">
+<head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,8 +8,27 @@
 <title>Protectora Animales</title>
 </head>
 <body>
-	<header th:replace="base :: header"></header>
 
+	<header th:fragment="header">
+	<nav>
+		<div class="logo">
+			<img th:src="@{/images/logo.PNG}">
+		</div>
+		<ul>
+			<li><a class="active" th:href="@{/}" th:class="${activeUrl=='/' ? 'active' : ''}">Inicio</a></li>
+			<li><a class="active" th:href="@{/animal}" th:class="${activeUrl=='animal' ? 'active' : ''}">Animales</a></li>
+			<li><a class="active" th:href="@{/raza}" th:class="${activeUrl=='raza' ? 'active' : ''}">Razas</a></li>
+			<li><a class="active" th:href="@{/refugio}" th:class="${activeUrl=='refugio' ? 'active' : ''}">Refugios</a></li>
+		</ul>
+	</nav>
+
+	<div class="hero-image">
+		<div class="hero-text">
+			<span>ADOPTA</span>
+			<p>No compres</p>
+		</div>
+	</div>
+	</header>
 	<section>
 		<table class="styled-table center">
 			<thead>

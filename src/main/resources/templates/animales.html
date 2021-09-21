@@ -8,24 +8,7 @@
 <title>Protectora Animales</title>
 </head>
 <body>
-	<nav>
-		<div class="logo">
-			<img th:src="@{/images/logo.PNG}">
-		</div>
-		<ul>
-			<li><a th:href="@{/}">Inicio</a></li>
-			<li><a class="active" th:href="@{/animal}">Animales</a></li>
-			<li><a href="#">Razas</a></li>
-			<li><a href="#">Refugios</a></li>
-		</ul>
-	</nav>
-
-	<div class="hero-image">
-		<div class="hero-text">
-			<span>ADOPTA</span>
-			<p>No compres</p>
-		</div>
-	</div>
+	<header th:replace="~{base::header(activeUrl='animal')}"></header>
 
 	<section>
 		<h1>Animales</h1>

@@ -1,7 +1,5 @@
 package com.proyecto.protectora.controllers;
 
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.proyecto.protectora.entities.Refugio;
-import com.proyecto.protectora.repositories.RefugioRepository;
 import com.proyecto.protectora.services.RefugioServiceImpl;
 
 @Controller
@@ -35,6 +32,7 @@ public class RefugioController {
 		log.debug("getRefugios");
 
 		model.addAttribute("listado", service.findAllRefugios());
+		model.addAttribute("refugio", new Refugio());
 
 		return "refugios";
 	}

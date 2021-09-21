@@ -8,108 +8,124 @@
 <title>Protectora Animales</title>
 </head>
 <body>
-	<nav>
-		<div class="logo">
-			<img th:src="@{/images/logo.PNG}">
-		</div>
-		<ul>
-			<li><a th:href="@{/}">Inicio</a></li>
-			<li><a class="active" th:href="@{/animal}">Animales</a></li>
-			<li><a href="#">Razas</a></li>
-			<li><a href="#">Refugios</a></li>
-		</ul>
-	</nav>
+<head th:replace="~{base::header(activeUrl='raza')}"></head>
 
-	<div class="hero-image">
-		<div class="hero-text">
-			<span>ADOPTA</span>
-			<p>No compres</p>
-		</div>
-	</div>
+<h1 th:text="${raza.nombre}"></h1>
 
-	<h1 th:text="${animal.nombre}"></h1>
+<section>
+	<table class="styled-table center">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Tipo</th>
+				<th>Raza</th>
+				<th>Tamaño</th>
+				<th>Acciones</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td th:text="${raza.id}"></td>
+				<td th:text="${raza.tipo}"></td>
+				<td th:text="${raza.nombre}"></td>
+				<td th:text="${raza.tamanio}"></td>
 
-	<section>
-		<table class="styled-table center">
-			<thead>
-				<tr>
-					<th>ID</th>
-					<th>Nombre</th>
-					<th>Género</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td th:text="${animal.id}"></td>
-					<td th:text="${animal.nombre}"></td>
-					<td th:text="${animal.genero}"></td>
+			</tr>
+		</tbody>
+	</table>
+</section>
 
-				</tr>
-			</tbody>
-		</table>
-	</section>
-
-	<section>
-		<h1>Modificar Animal</h1>
+<section>
+		<h1>Modificar Raza</h1>
 		<div class="card">
 
-			<form class="card-form" th:action="@{/animal/} + ${animal.id} "
-				method="post" th:object="${animal}">
+			<form class="card-form" th:action="@{/raza/} + ${raza.id} "
+				method="post" th:object="${raza}">
 				<div class="input">
 					<input type="text" class="input-field" id="nombre"
 						th:field="*{nombre}" required /> <label class="input-label"
 						for="nombre">Nombre</label>
 				</div>
-				<select th:field="*{genero}" id="genero" name="genero" required>
+				<select th:field="*{tipo}" id="tipo" name="tipo" required>
 					<option
-						th:each="genero:${T(com.proyecto.protectora.common.Genero).values()}"
-						th:value="${genero}" th:text="${genero}"></option>
-				</select>
-				<div class="action">
-					<button class="action-button" type="submit">Enviar</button>
-				</div>
-			</form>
-		</div>
-	</section>
-
-	<section th:if="${razas}"></section>
-	<h2>Formulario modificar</h2>
-	<form id="fmodificar" th:action="@{/animal/} + ${animal.id}"
-		method="post" th:object="${animal}">
-		<label for="nombre">Nombre</label> <input type="text" id="nombre"
-			th:field="*{nombre}">
-		<button type="submit">Enviar</button>
-	</form>
-	
-	<section>
-		<h1>Añadir Raza</h1>
-		<div class="card">
-
-			<form class="card-form" th:action="@{/raza} " method="post">
-				<select id="tipo" name="tipo" required>
-					<option 
 						th:each="tipo:${T(com.proyecto.protectora.common.Tipo).values()}"
 						th:value="${tipo}" th:text="${tipo}"></option>
 				</select>
-				<div class="input">
-					<input type="text" class="input-field" id="raza" name="raza"
-						required /> <label class="input-label" for="raza">Raza</label>
-				</div>
-				<select id="tamanio" name="tamanio" required>
-					<option 
+				
+				<select id="tamanio" th:field="*{tamanio}" name="tamanio" required>
+					<option
 						th:each="tamanio:${T(com.proyecto.protectora.common.Tamanio).values()}"
 						th:value="${tamanio}" th:text="${tamanio}"></option>
 				</select>
-				
 				<div class="action">
 					<button class="action-button" type="submit">Enviar</button>
 				</div>
 			</form>
 		</div>
 	</section>
-	<script defer
-		src="https://use.fontawesome.com/releases/v5.0.10/js/all.js"
-		integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+"
-		crossorigin="anonymous"></script>
+
+
+<!-- <section>
+	<h1>Modificar Animal</h1>
+	<div class="card">
+
+		<form class="card-form" th:action="@{/animal/} + ${animal.id} "
+			method="post" th:object="${animal}">
+			<div class="input">
+				<input type="text" class="input-field" id="nombre"
+					th:field="*{nombre}" required /> <label class="input-label"
+					for="nombre">Nombre</label>
+			</div>
+			<select th:field="*{genero}" id="genero" name="genero" required>
+				<option
+					th:each="genero:${T(com.proyecto.protectora.common.Genero).values()}"
+					th:value="${genero}" th:text="${genero}"></option>
+			</select>
+			<div class="action">
+				<button class="action-button" type="submit">Enviar</button>
+			</div>
+		</form>
+	</div>
+</section>
+
+<section th:if="${razas}"></section>
+<h2>Formulario modificar</h2>
+<form id="fmodificar" th:action="@{/animal/} + ${animal.id}"
+	method="post" th:object="${animal}">
+	<label for="nombre">Nombre</label> <input type="text" id="nombre"
+		th:field="*{nombre}">
+	<button type="submit">Enviar</button>
+</form>
+
+<section>
+	<h1>Añadir Raza</h1>
+	<div class="card">
+
+		<form class="card-form" th:action="@{/raza} " method="post">
+			<select id="tipo" name="tipo" required>
+				<option
+					th:each="tipo:${T(com.proyecto.protectora.common.Tipo).values()}"
+					th:value="${tipo}" th:text="${tipo}"></option>
+			</select>
+			<div class="input">
+				<input type="text" class="input-field" id="raza" name="raza"
+					required /> <label class="input-label" for="raza">Raza</label>
+			</div>
+			<select id="tamanio" name="tamanio" required>
+				<option
+					th:each="tamanio:${T(com.proyecto.protectora.common.Tamanio).values()}"
+					th:value="${tamanio}" th:text="${tamanio}"></option>
+			</select>
+
+			<div class="action">
+				<button class="action-button" type="submit">Enviar</button>
+			</div>
+		</form>
+	</div> -->
+</section>
+<script defer
+	src="https://use.fontawesome.com/releases/v5.0.10/js/all.js"
+	integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+"
+	crossorigin="anonymous"></script>
 </body>
 </html>

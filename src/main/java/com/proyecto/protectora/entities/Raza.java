@@ -24,8 +24,8 @@ public class Raza {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@javax.validation.constraints.NotNull(message = "LastName can not be null!!")
-    @NotEmpty(message = "LastName can not be empty!!")
+	//@javax.validation.constraints.NotNull(message = "nombre can not be null!!")
+   // @NotEmpty(message = "nombre can not be empty!!")
 	private String nombre;
 
 	@Enumerated(value = EnumType.STRING)
@@ -69,7 +69,7 @@ public class Raza {
 		return nombre;
 	}
 
-	public void setRaza(String nombre) {
+	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 

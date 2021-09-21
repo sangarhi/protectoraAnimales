@@ -71,15 +71,6 @@
 			</form>
 		</div>
 	</section>
-
-	<section th:if="${razas}"></section>
-	<h2>Formulario modificar</h2>
-	<form id="fmodificar" th:action="@{/animal/} + ${animal.id}"
-		method="post" th:object="${animal}">
-		<label for="nombre">Nombre</label> <input type="text" id="nombre"
-			th:field="*{nombre}">
-		<button type="submit">Enviar</button>
-	</form>
 	
 	<section>
 		<h1>Añadir Raza</h1>

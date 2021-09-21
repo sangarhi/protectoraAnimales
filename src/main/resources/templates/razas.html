@@ -8,7 +8,64 @@
 <title>Protectora Animales</title>
 </head>
 <body>
-	<nav>
+
+<header th:replace="~{base::header(activeUrl='raza')}"></header>
+
+<section>
+		<h1>Razas</h1>
+		<table class="styled-table center">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Tipo</th>
+					<th>Raza</th>
+					<th>Tamaño</th>
+					<th>Acciones</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="elemento:${listado}">
+					<td th:text="${elemento.id}"></td>
+					<td th:text="${elemento.tipo}"></td>
+					<td th:text="${elemento.nombre}"></td>
+					<td th:text="${elemento.tamanio}"></td>
+					<td><a th:href="@{/raza/} + ${elemento.id}"><i
+							class="icon fas fa-search" style="color: #09BFE3"></i></a><a
+						th:href="@{/raza/r/} + ${elemento.id}"><i
+							class="icon fas fa-trash-alt" style="color: #F50033"></i></a></td>
+				</tr>
+			</tbody>
+		</table>
+	</section>
+	
+	<section>
+		<h1>Añadir Nueva Raza</h1>
+		<div class="card">
+
+			<form class="card-form" th:action="@{/raza/} " th:object="${raza}" method="post">
+				<div class="input">
+					<input type="text" class="input-field" id="nombre" th:field="*{nombre}"
+						required /> <label class="input-label" for="nombre">Nombre</label>
+				</div>
+				<select th:field="*{tipo}" id="tipo" required>
+					<option
+						th:each="tipo:${T(com.proyecto.protectora.common.Tipo).values()}"
+						th:value="${tipo}" th:text="${tipo}"></option>
+				</select>
+				
+				<select id="tamanio" th:field="*{tamanio}" required>
+					<option
+						th:each="tamanio:${T(com.proyecto.protectora.common.Tamanio).values()}"
+						th:value="${tamanio}" th:text="${tamanio}"></option>
+				</select>
+				<div class="action">
+					<button class="action-button" type="submit">Enviar</button>
+				</div>
+			</form>
+		</div>
+	</section>
+
+	<!-- <nav>
 		<div class="logo">
 			<img th:src="@{/images/logo.PNG}">
 		</div>
@@ -78,7 +135,7 @@
 				</div>
 			</form>
 		</div>
-	</section>
+	</section> -->
 	
 	<!-- <section>
 		<h1>Añadir Nueva Raza</h1>

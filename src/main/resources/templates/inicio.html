@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
+<head th:fragment="head">
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,25 +8,7 @@
 <title>Protectora Animales</title>
 </head>
 <body>
-	<nav>
-		<div class="logo">
-			<img th:src="@{/images/logo.PNG}">
-		</div>
-		<ul>
-		<li><a class="active" th:href="@{/}">Inicio</a></li>
-			<li><a th:href="@{/animal}">Animales</a></li>
-			<li><a th:href="@{/raza}">Razas</a></li>
-			<li><a href="#">Refugios</a></li>
-		</ul>
-	</nav>
-
-	
-		<div class="hero-image">
-			<div class="hero-text">
-				<span>ADOPTA</span>
-				<p>No compres</p>
-			</div>
-		</div>
+	<header th:replace="base :: header"></header>
 
 	<section>
 		<table class="styled-table center">
@@ -48,6 +30,9 @@
 			</tbody>
 		</table>
 	</section>
-	<script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
+	<script defer
+		src="https://use.fontawesome.com/releases/v5.0.10/js/all.js"
+		integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+"
+		crossorigin="anonymous"></script>
 </body>
 </html>

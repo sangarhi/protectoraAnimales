@@ -14,8 +14,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.proyecto.protectora.entities.Animal;
-import com.proyecto.protectora.repositories.AnimalRepository;
-import com.proyecto.protectora.services.AnimalServiceImpl;
+import com.proyecto.protectora.entities.Raza;
+import com.proyecto.protectora.services.interfaces.AnimalService;
+import com.proyecto.protectora.services.interfaces.RazaService;
 
 @Controller
 @RequestMapping("/animal")
@@ -27,7 +28,10 @@ public class AnimalController {
 	Logger log = LoggerFactory.getLogger(Animal.class);
 
 	@Autowired
-	AnimalServiceImpl service;
+	AnimalService service;
+	
+	@Autowired
+	RazaService razaService;
 
 	@GetMapping
 	public String getAnimales(Model model) {
@@ -43,7 +47,8 @@ public class AnimalController {
 	public String createAnimal(@ModelAttribute Animal animal) {
 
 		log.debug("createAnimal");
-
+		
+		List<Raza> listRazas = razaService.findAllRazas();
 		/*
 		 * if(animal != null) { if(animal.getNombre() != null) {
 		 * //animal.getNombre().length() > 3 } }
