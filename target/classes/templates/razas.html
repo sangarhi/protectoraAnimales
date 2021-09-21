@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" th:href="@{/css/styles.css}">
+<title>Protectora Animales</title>
+</head>
+<body>
+	<nav>
+		<div class="logo">
+			<img th:src="@{/images/logo.PNG}">
+		</div>
+		<ul>
+			<li><a th:href="@{/}">Inicio</a></li>
+			<li><a th:href="@{/animal}">Animales</a></li>
+			<li><a class="active" th:href="@{/raza}">Razas</a></li>
+			<li><a href="#">Refugios</a></li>
+		</ul>
+	</nav>
+
+	<div class="hero-image">
+		<div class="hero-text">
+			<span>ADOPTA</span>
+			<p>No compres</p>
+		</div>
+	</div>
+
+	<section>
+		<h1>Razas</h1>
+		<table class="styled-table center">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Tipo</th>
+					<th>Raza</th>
+					<th>Tamaño</th>
+					<th>Acciones</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="elemento:${listado}">
+					<td th:text="${elemento.id}"></td>
+					<td th:text="${elemento.tipo}"></td>
+					<td th:text="${elemento.nombre}"></td>
+					<td th:text="${elemento.tamanio}"></td>
+					<td><a th:href="@{/raza/} + ${elemento.id}"><i
+							class="icon fas fa-search" style="color: #09BFE3"></i></a><a
+						th:href="@{/raza/r/} + ${elemento.id}"><i
+							class="icon fas fa-trash-alt" style="color: #F50033"></i></a></td>
+				</tr>
+			</tbody>
+		</table>
+	</section>
+
+	<section>
+		<h1>Añadir Nueva Raza</h1>
+		<div class="card">
+
+			<form class="card-form" th:action="@{/raza} " method="post">
+				<select id="tipo" name="tipo" required>
+					<option
+						th:each="tipo:${T(com.proyecto.protectora.common.Tipo).values()}"
+						th:value="${tipo}" th:text="${tipo}"></option>
+				</select>
+				<div class="input">
+					<input type="text" class="input-field" id="nombre" name="nombre"
+						required /> <label class="input-label" for="nombre">Raza</label>
+				</div>
+				<select id="tamanio" name="tamanio" required>
+					<option
+						th:each="tamanio:${T(com.proyecto.protectora.common.Tamanio).values()}"
+						th:value="${tamanio}" th:text="${tamanio}"></option>
+				</select>
+				<div class="action">
+					<button class="action-button" type="submit">Enviar</button>
+				</div>
+			</form>
+		</div>
+	</section>
+	
+	<!-- <section>
+		<h1>Añadir Nueva Raza</h1>
+		<div class="card">
+
+			<form  th:action="@{/raza}" th:object="${raza}" method="post" class="card-form">
+				<select th:field="*{tipo}" id="tipo"  required>
+					<option
+						th:each="tipo:${T(com.proyecto.protectora.common.Tipo).values()}"
+						th:value="${tipo}" th:text="${tipo}"></option>
+				</select>
+				<div class="input">
+					<input type="text" th:field="*{nombre}" class="input-field" id="nombre"
+						required /> <label class="input-label" for="nombre">Raza</label>
+						<small  th:if="${#fields.hasErrors('nombre')}"
+								th:errors="*{nombre}">
+							</small>
+				</div>
+				<select th:field="*{tamanio}" id="tamanio" required>
+					<option
+						th:each="tamanio:${T(com.proyecto.protectora.common.Tamanio).values()}"
+						th:value="${tamanio}" th:text="${tamanio}"></option>
+				</select>
+				<div class="action">
+					<button class="action-button" type="submit">Enviar</button>
+				</div>
+			</form>
+		</div>
+	</section> -->
+	<script defer
+		src="https://use.fontawesome.com/releases/v5.0.10/js/all.js"
+		integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+"
+		crossorigin="anonymous"></script>
+</body>
+</html>
