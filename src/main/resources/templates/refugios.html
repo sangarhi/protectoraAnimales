@@ -29,7 +29,7 @@
 					<td th:text="${elemento.tamanio}"></td>
 					<td><a th:href="@{/refugio/} + ${elemento.id}"><i
 							class="icon fas fa-search" style="color: #09BFE3"></i></a><a
-						th:href="@{/refugio/r/} + ${elemento.id}"><i
+						th:href="@{/refugio/r/} + ${elemento.id}" onclick="return confirm('¿Esta seguro de eliminar el registro?');"><i
 							class="icon fas fa-trash-alt" style="color: #F50033"></i></a></td>
 				</tr>
 			</tbody>
@@ -47,8 +47,10 @@
 				</div>
 				<div class="input">
 					<input type="text" class="input-field" id="tamanio" th:field="*{tamanio}"
-						required /> <label class="input-label" for="tamanio">Tamaño</label>
+						required /> <label class="input-label" for="tamanio">Tamaño m<sup>2</sup></label>
 				</div>
+				<div class="error" th:if="${#fields.hasErrors('tamanio')}" th:errors="*{tamanio}"></div>
+				
 				<div class="action">
 					<button class="action-button" type="submit">Enviar</button>
 				</div>

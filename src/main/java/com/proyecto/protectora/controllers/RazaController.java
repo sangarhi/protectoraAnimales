@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.proyecto.protectora.common.Tamanio;
 import com.proyecto.protectora.common.Tipo;
@@ -40,7 +41,7 @@ public class RazaController {
 	}
 
 	@PostMapping
-	public String createRaza(@Valid @ModelAttribute Raza raza, BindingResult br) {
+	public String createRaza(@Valid @ModelAttribute Raza raza, Model model, BindingResult br, RedirectAttributes attribute) {
 	
 		log.debug("createRaza");
 		log.debug("Raza" + raza);
@@ -48,6 +49,8 @@ public class RazaController {
 		log.debug("Tipo: " + raza.getTipo());
 
 		if(br.hasErrors()) {
+			model.addAttribute("listado", service.findAllRazas());
+			model.addAttribute("raza", raza);
 			
 			return "razas";
 		}
@@ -55,6 +58,7 @@ public class RazaController {
 
 		service.save(raza);
 
+		attribute.addFlashAttribute("success", "La raza se ha creado con éxito.");
 		return "redirect:/raza";
 
 	}
@@ -72,22 +76,25 @@ public class RazaController {
 	}
 
 	@PostMapping("/{id}")
-	public String updateRaza(Model model, @ModelAttribute Raza raza, @PathVariable Long id) {
+	public String updateRaza(Model model, @ModelAttribute Raza raza, @PathVariable Long id, RedirectAttributes attribute) {
 
 		log.debug("updateRaza");
 
 		service.save(raza);
-
+		
+		attribute.addFlashAttribute("success", "La raza se ha modificado correctamente.");
+		
 		return "redirect:/raza/" + id;
 
 	}
 
 	@RequestMapping("/r/{id}")
-	public String deleteRaza(@PathVariable("id") Long id) {
+	public String deleteRaza(@PathVariable("id") Long id, RedirectAttributes attribute) {
 
 		log.debug("deleteRaza");
 
 		service.delete(id);
+		attribute.addFlashAttribute("error", "La raza se ha eliminado correctamente.");
 
 		return "redirect:/raza";
 	}

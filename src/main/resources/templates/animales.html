@@ -32,7 +32,7 @@
 					<td th:text="${elemento.refugio.numero}"></td>
 					<td><a th:href="@{/animal/} + ${elemento.id}"><i
 							class="icon fas fa-search" style="color: #09BFE3"></i></a><a
-						th:href="@{/animal/r/} + ${elemento.id}"><i
+						th:href="@{/animal/r/} + ${elemento.id}" onclick="return confirm('¿Esta seguro de eliminar el registro?');"><i
 							class="icon fas fa-trash-alt" style="color: #F50033"></i></a></td>
 				</tr>
 			</tbody>

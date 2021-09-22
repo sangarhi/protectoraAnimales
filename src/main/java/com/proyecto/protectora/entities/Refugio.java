@@ -9,6 +9,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -20,9 +27,14 @@ public class Refugio {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@NotNull
 	private Integer numero;
 
-	private Double tamanio;
+	@NotNull
+	@Min(0)
+	@Max(20)
+	//@Pattern(regexp = "[0-9]{5}")
+	private Integer tamanio;
 
 	@OneToMany(mappedBy="refugio", cascade = { CascadeType.ALL}, fetch=FetchType.EAGER)
 	 @OnDelete( action = OnDeleteAction.CASCADE )
@@ -32,7 +44,7 @@ public class Refugio {
 		super();
 	}
 
-	public Refugio(Long id, Integer numero, Double tamanio) {
+	public Refugio(Long id, Integer numero, Integer tamanio) {
 		super();
 		this.id = id;
 		this.numero = numero;
@@ -55,11 +67,11 @@ public class Refugio {
 		this.numero = numero;
 	}
 
-	public Double getTamanio() {
+	public Integer getTamanio() {
 		return tamanio;
 	}
 
-	public void setTamanio(Double tamanio) {
+	public void setTamanio(Integer tamanio) {
 		this.tamanio = tamanio;
 	}
 

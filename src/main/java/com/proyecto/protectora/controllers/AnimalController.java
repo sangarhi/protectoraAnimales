@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.proyecto.protectora.entities.Animal;
 import com.proyecto.protectora.entities.Raza;
@@ -54,7 +55,7 @@ public class AnimalController {
 	}
 
 	@PostMapping
-	public String createAnimal(@Valid @ModelAttribute Animal animal, BindingResult br) {
+	public String createAnimal(@Valid @ModelAttribute Animal animal, BindingResult br, RedirectAttributes attribute) {
 
 		log.debug("createAnimal");
 		
@@ -62,12 +63,10 @@ public class AnimalController {
 			
 			return "animales";
 		}
-		/*
-		 * if(animal != null) { if(animal.getNombre() != null) {
-		 * //animal.getNombre().length() > 3 } }
-		 */
 		
 		service.save(animal);
+		
+		attribute.addFlashAttribute("success", "El animal se ha creado con éxito.");
 
 		return "redirect:/animal";
 
@@ -88,22 +87,28 @@ public class AnimalController {
 	}
 
 	@PostMapping("/{id}")
-	public String updateAnimal(Model model, @ModelAttribute Animal animal, @PathVariable Long id) {
+	public String updateAnimal(Model model, @ModelAttribute Animal animal, @PathVariable Long id, RedirectAttributes attribute) {
 
 		log.debug("updateAnimal");
 
 		service.save(animal);
+		
+		attribute.addFlashAttribute("success", "El animal se ha modificado correctamente.");
 
 		return "redirect:/animal/" + id;
 
 	}
 	
 	@RequestMapping("/r/{id}")
-	public String deleteAnimal(@PathVariable("id") Long id) {
+	public String deleteAnimal(@PathVariable("id") Long id, RedirectAttributes attribute) {
 		
-		log.debug("deleteAnimal");
+		log.debug("deleteAnimal: "+id);
 		
 		service.delete(id);
+
+		attribute.addFlashAttribute("error", "El animal se ha eliminado correctamente.");
+		
+		log.debug("animal borrado: "+id);
 		
 		return "redirect:/animal";
 	}

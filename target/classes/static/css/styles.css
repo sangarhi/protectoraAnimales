@@ -78,10 +78,6 @@ input[type="checkbox"] {
 	display: none;
 }
 
-body, html {
-	height: 100%;
-}
-
 .flex-container {
 	display: flex;
 	justify-content: space-around;
@@ -89,18 +85,19 @@ body, html {
 }
 
 .link-page {
-	width: 10em;
-	height: 10em;
 	background-color: #f7f7f7;
 	border: 1px solid #c7c7c7;
 	border-radius: 5px;
-	text-align: center;
-	padding: 2.5em;
 	color: #707070;
-	text-decoration: none;
 	font-weight: 600;
+	height: 10em;
+	margin-top: 4em;
+	padding: 2.5em;
+	text-align: center;
+	text-decoration: none;
 	text-transform: uppercase;
 	transition-duration: 0.2s;
+	width: 10em;
 }
 
 .link-page:hover {

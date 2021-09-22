@@ -12,13 +12,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import com.proyecto.protectora.common.Tamanio;
 import com.proyecto.protectora.common.Tipo;
-import com.sun.istack.NotNull;
 
 @Entity
 public class Raza {
@@ -27,8 +27,8 @@ public class Raza {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	//@javax.validation.constraints.NotNull(message = "nombre can not be null!!")
-   // @NotEmpty(message = "nombre can not be empty!!")
+	@NotNull
+	@NotEmpty
 	private String nombre;
 
 	@Enumerated(value = EnumType.STRING)
@@ -38,7 +38,7 @@ public class Raza {
 	private Tamanio tamanio;
 
 	@OneToMany(mappedBy = "raza", cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
-	 @OnDelete( action = OnDeleteAction.CASCADE )
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	private List<Animal> animal;
 
 	public Raza() {
