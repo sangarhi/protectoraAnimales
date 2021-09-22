@@ -27,7 +27,7 @@
 		</div>
 	</div>
 
-	<h1 th:text="${animal.nombre}"></h1>
+	
 
 	<section>
 		<table class="styled-table center">
@@ -36,6 +36,8 @@
 					<th>ID</th>
 					<th>Nombre</th>
 					<th>Género</th>
+					<th>Raza</th>
+					<th>Nº Refugio</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -43,7 +45,8 @@
 					<td th:text="${animal.id}"></td>
 					<td th:text="${animal.nombre}"></td>
 					<td th:text="${animal.genero}"></td>
-
+					<td th:text="${animal.raza.nombre}"></td>
+					<td th:text="${animal.refugio.numero}"></td>
 				</tr>
 			</tbody>
 		</table>
@@ -64,34 +67,13 @@
 					<option
 						th:each="genero:${T(com.proyecto.protectora.common.Genero).values()}"
 						th:value="${genero}" th:text="${genero}"></option>
+				</select> <select id="raza" th:field="*{raza}" name="raza" required>
+					<option th:each="raza:${razas}" th:value="${raza.id}"
+						th:text="${raza.nombre}"></option>
+				</select> <select id="refugio" th:field="*{refugio}" name="refugio" required>
+					<option th:each="refugio:${refugios}" th:value="${refugio.id}"
+						th:text="${refugio.numero}"></option>
 				</select>
-				<div class="action">
-					<button class="action-button" type="submit">Enviar</button>
-				</div>
-			</form>
-		</div>
-	</section>
-	
-	<section>
-		<h1>Añadir Raza</h1>
-		<div class="card">
-
-			<form class="card-form" th:action="@{/raza} " method="post">
-				<select id="tipo" name="tipo" required>
-					<option 
-						th:each="tipo:${T(com.proyecto.protectora.common.Tipo).values()}"
-						th:value="${tipo}" th:text="${tipo}"></option>
-				</select>
-				<div class="input">
-					<input type="text" class="input-field" id="raza" name="raza"
-						required /> <label class="input-label" for="raza">Raza</label>
-				</div>
-				<select id="tamanio" name="tamanio" required>
-					<option 
-						th:each="tamanio:${T(com.proyecto.protectora.common.Tamanio).values()}"
-						th:value="${tamanio}" th:text="${tamanio}"></option>
-				</select>
-				
 				<div class="action">
 					<button class="action-button" type="submit">Enviar</button>
 				</div>

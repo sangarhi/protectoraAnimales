@@ -8,8 +8,10 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 public class Refugio {
@@ -23,6 +25,7 @@ public class Refugio {
 	private Double tamanio;
 
 	@OneToMany(mappedBy="refugio", cascade = { CascadeType.ALL}, fetch=FetchType.EAGER)
+	 @OnDelete( action = OnDeleteAction.CASCADE )
 	private List<Animal> animal;
 
 	public Refugio() {

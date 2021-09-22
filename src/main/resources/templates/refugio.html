@@ -8,7 +8,7 @@
 <title>Protectora Animales</title>
 </head>
 <body>
-<head th:replace="~{base::header(activeUrl='raza')}"></head>
+<head th:replace="~{base::header(activeUrl='refugio')}"></head>
 
 
 
@@ -17,18 +17,15 @@
 		<thead>
 			<tr>
 				<th>ID</th>
-				<th>Tipo</th>
-				<th>Raza</th>
+				<th>Nº Refugio</th>
 				<th>Tamaño</th>
-				<th>Acciones</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr>
-				<td th:text="${raza.id}"></td>
-				<td th:text="${raza.tipo}"></td>
-				<td th:text="${raza.nombre}"></td>
-				<td th:text="${raza.tamanio}"></td>
+				<td th:text="${refugio.id}"></td>
+				<td th:text="${refugio.numero}"></td>
+				<td th:text="${refugio.tamanio}"></td>
 
 			</tr>
 		</tbody>
@@ -36,27 +33,22 @@
 </section>
 
 <section>
-		<h1>Modificar Raza</h1>
+		<h1>Modificar Refugio</h1>
 		<div class="card">
 
-			<form class="card-form" th:action="@{/raza/} + ${raza.id} "
-				method="post" th:object="${raza}">
+			<form class="card-form" th:action="@{/refugio/} + ${refugio.id} "
+				method="post" th:object="${refugio}">
 				<div class="input">
-					<input type="text" class="input-field" id="nombre"
-						th:field="*{nombre}" required /> <label class="input-label"
-						for="nombre">Nombre</label>
+					<input type="text" class="input-field" id="numero"
+						th:field="*{numero}" required /> <label class="input-label"
+						for="numero">Número</label>
 				</div>
-				<select th:field="*{tipo}" id="tipo" name="tipo" required>
-					<option
-						th:each="tipo:${T(com.proyecto.protectora.common.Tipo).values()}"
-						th:value="${tipo}" th:text="${tipo}"></option>
-				</select>
+				<div class="input">
+					<input type="text" class="input-field" id="tamanio"
+						th:field="*{tamanio}" required /> <label class="input-label"
+						for="tamanio">Tamaño</label>
+				</div>
 				
-				<select id="tamanio" th:field="*{tamanio}" name="tamanio" required>
-					<option
-						th:each="tamanio:${T(com.proyecto.protectora.common.Tamanio).values()}"
-						th:value="${tamanio}" th:text="${tamanio}"></option>
-				</select>
 				<div class="action">
 					<button class="action-button" type="submit">Enviar</button>
 				</div>
@@ -88,7 +80,7 @@
 	</div>
 </section>
 
-<section th:if="${razas}"></section>
+<section th:if="${refugios}"></section>
 <h2>Formulario modificar</h2>
 <form id="fmodificar" th:action="@{/animal/} + ${animal.id}"
 	method="post" th:object="${animal}">
@@ -98,18 +90,18 @@
 </form>
 
 <section>
-	<h1>Añadir Raza</h1>
+	<h1>Añadir Refugio</h1>
 	<div class="card">
 
-		<form class="card-form" th:action="@{/raza} " method="post">
+		<form class="card-form" th:action="@{/refugio} " method="post">
 			<select id="tipo" name="tipo" required>
 				<option
 					th:each="tipo:${T(com.proyecto.protectora.common.Tipo).values()}"
 					th:value="${tipo}" th:text="${tipo}"></option>
 			</select>
 			<div class="input">
-				<input type="text" class="input-field" id="raza" name="raza"
-					required /> <label class="input-label" for="raza">Raza</label>
+				<input type="text" class="input-field" id="refugio" name="refugio"
+					required /> <label class="input-label" for="refugio">Refugio</label>
 			</div>
 			<select id="tamanio" name="tamanio" required>
 				<option

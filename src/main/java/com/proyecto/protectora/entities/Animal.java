@@ -70,14 +70,20 @@ public class Animal {
 		this.genero = genero;
 	}
 
-	/*
-	 * public Refugio getRefugio() { return refugio; }
-	 * 
-	 * public void setRefugio(Refugio refugio) { this.refugio = refugio; }
-	 * 
-	 * public Raza getRaza() { return raza; }
-	 * 
-	 * public void setRaza(Raza raza) { this.raza = raza; }
-	 */
+	public Refugio getRefugio() {
+		return refugio;
+	}
+
+	public void setRefugio(Refugio refugio) {
+		this.refugio = refugio;
+	}
+
+	public Raza getRaza() {
+		return raza;
+	}
+
+	public void setRaza(Raza raza) {
+		this.raza = raza;
+	}
 
 }

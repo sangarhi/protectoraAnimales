@@ -13,6 +13,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import com.proyecto.protectora.common.Tamanio;
 import com.proyecto.protectora.common.Tipo;
 import com.sun.istack.NotNull;
@@ -35,6 +38,7 @@ public class Raza {
 	private Tamanio tamanio;
 
 	@OneToMany(mappedBy = "raza", cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
+	 @OnDelete( action = OnDeleteAction.CASCADE )
 	private List<Animal> animal;
 
 	public Raza() {

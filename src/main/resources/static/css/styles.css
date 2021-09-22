@@ -9,14 +9,12 @@
 	font-family: 'Poppins', sans-serif;
 }
 
- h1 {
+h1 {
 	padding-top: 1em;
 	text-align: center;
 }
 
-
 section {
-	
 	margin-bottom: 5em;
 }
 
@@ -84,6 +82,37 @@ body, html {
 	height: 100%;
 }
 
+.flex-container {
+	display: flex;
+	justify-content: space-around;
+	width: 80%;
+}
+
+.link-page {
+	width: 10em;
+	height: 10em;
+	background-color: #f7f7f7;
+	border: 1px solid #c7c7c7;
+	border-radius: 5px;
+	text-align: center;
+	padding: 2.5em;
+	color: #707070;
+	text-decoration: none;
+	font-weight: 600;
+	text-transform: uppercase;
+	transition-duration: 0.2s;
+}
+
+.link-page:hover {
+	background-color: #555555;
+	color: white;
+}
+
+.link-descr {
+	display: block;
+	margin-top: 0.5em
+}
+
 /* The hero image */
 .hero-image {
 	/* Use "linear-gradient" to add a darken background effect to the image (photographer.jpg). This will make the text easier to read */
@@ -120,6 +149,10 @@ body, html {
 	margin-right: auto;
 }
 
+td {
+	text-align: center;
+}
+
 .styled-table {
 	border-collapse: collapse;
 	font-size: 1em;
@@ -132,7 +165,6 @@ body, html {
 .styled-table thead tr {
 	background-color: #00b2b2;
 	color: #ffffff;
-	text-align: left;
 }
 
 .styled-table th, .styled-table td {
@@ -155,7 +187,6 @@ body, html {
 	font-weight: bold;
 	color: #00b2b2;
 }
-
 
 select {
 	margin-bottom: 1em;
@@ -255,4 +286,26 @@ input {
 
 .action-button:focus {
 	outline: 0;
+}
+
+.error {
+	color: #771111;
+}
+
+div.error {
+	background-color: #eecccc;
+	border-color: #ddbbbb;
+}
+
+div.success {
+	color: #226622;
+	background-color: #cceecc;
+	border-color: #bbddbb;
+}
+
+div.error, div.success {
+	border-radius: 4px;
+	padding: 10px;
+	border-width: 1px;
+	border-style: solid;
 }
