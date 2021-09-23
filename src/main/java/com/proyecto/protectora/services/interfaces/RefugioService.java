@@ -1,6 +1,7 @@
 package com.proyecto.protectora.services.interfaces;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.proyecto.protectora.entities.Refugio;
 
@@ -10,8 +11,8 @@ public interface RefugioService {
 
 	public void save(Refugio refugio);
 
-	public Refugio getById(Long id);
+	public Optional<Refugio> findById(Long id);
 
-	public void delete(Long id);
+	public void delete(Refugio refugio);
 
 }

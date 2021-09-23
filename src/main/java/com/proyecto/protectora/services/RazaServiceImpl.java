@@ -1,15 +1,13 @@
 package com.proyecto.protectora.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.proyecto.protectora.entities.Animal;
 import com.proyecto.protectora.entities.Raza;
-import com.proyecto.protectora.repositories.AnimalRepository;
 import com.proyecto.protectora.repositories.RazaRepository;
-import com.proyecto.protectora.services.interfaces.AnimalService;
 import com.proyecto.protectora.services.interfaces.RazaService;
 
 @Service
@@ -20,8 +18,8 @@ public class RazaServiceImpl implements RazaService {
 
 	@Override
 	public List<Raza> findAllRazas() {
-
-		List<Raza> razas = razaRepository.findAll();
+		
+	  List<Raza> razas = razaRepository.findAll();
 
 		return razas;
 	}
@@ -29,23 +27,24 @@ public class RazaServiceImpl implements RazaService {
 
 	@Override
 	public void save(Raza raza) {
+		raza.setNombre(raza.getNombre().toUpperCase());
 		
 		razaRepository.save(raza);
 
 	}
 
 	@Override
-	public Raza getById(Long id) {
+	public Optional<Raza> findById(Long id) {
 		
-		Raza raza =  razaRepository.getById(id);
+		Optional<Raza> raza =  razaRepository.findById(id);
 		
 		return raza;
 	}
 
 	@Override
-	public void delete(Long id) {
+	public void delete(Raza raza) {
 
-		razaRepository.deleteById(id);
+		razaRepository.delete(raza);
 
 	}
 

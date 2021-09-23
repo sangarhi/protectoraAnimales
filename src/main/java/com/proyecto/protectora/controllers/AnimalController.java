@@ -1,6 +1,6 @@
 package com.proyecto.protectora.controllers;
 
-import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.proyecto.protectora.entities.Animal;
-import com.proyecto.protectora.entities.Raza;
 import com.proyecto.protectora.services.interfaces.AnimalService;
 import com.proyecto.protectora.services.interfaces.RazaService;
 import com.proyecto.protectora.services.interfaces.RefugioService;
@@ -34,10 +33,10 @@ public class AnimalController {
 
 	@Autowired
 	AnimalService service;
-	
+
 	@Autowired
 	RazaService razaService;
-	
+
 	@Autowired
 	RefugioService refugioService;
 
@@ -58,14 +57,14 @@ public class AnimalController {
 	public String createAnimal(@Valid @ModelAttribute Animal animal, BindingResult br, RedirectAttributes attribute) {
 
 		log.debug("createAnimal");
-		
-		if(br.hasErrors()) {
-			
+		log.debug(animal.getRaza() + "");
+		if (br.hasErrors()) {
+
 			return "animales";
 		}
-		
+
 		service.save(animal);
-		
+
 		attribute.addFlashAttribute("success", "El animal se ha creado con éxito.");
 
 		return "redirect:/animal";
@@ -74,10 +73,16 @@ public class AnimalController {
 
 	@GetMapping("/{id}")
 	public String findAnimal(Model model, @PathVariable("id") Long id) {
-
 		log.debug("findAnimal");
+		
+		Optional<Animal> animalOpt = this.service.findById(id);
 
-		Animal animal = service.getById(id);
+		if (!animalOpt.isPresent()) {
+			log.error("El id especificado no se encuentra en la bbdd");
+			return "error/error-specific";
+		}
+
+		Animal animal = animalOpt.get();
 
 		model.addAttribute(animal);
 		model.addAttribute("razas", razaService.findAllRazas());
@@ -87,29 +92,38 @@ public class AnimalController {
 	}
 
 	@PostMapping("/{id}")
-	public String updateAnimal(Model model, @ModelAttribute Animal animal, @PathVariable Long id, RedirectAttributes attribute) {
+	public String updateAnimal(Model model, @ModelAttribute Animal animal, @PathVariable Long id,
+			RedirectAttributes attribute) {
 
 		log.debug("updateAnimal");
 
 		service.save(animal);
-		
+
 		attribute.addFlashAttribute("success", "El animal se ha modificado correctamente.");
 
 		return "redirect:/animal/" + id;
 
 	}
-	
+
 	@RequestMapping("/r/{id}")
 	public String deleteAnimal(@PathVariable("id") Long id, RedirectAttributes attribute) {
+
+		log.debug("deleteAnimal: " + id);
 		
-		log.debug("deleteAnimal: "+id);
+		Optional<Animal> animalOpt = this.service.findById(id);
 		
-		service.delete(id);
+		if(!animalOpt.isPresent()) {
+			log.error("El id especificado no se encuentra en la bbdd");
+			return "error/error-specific";
+		}
+
+		Animal animal = animalOpt.get();
+		service.delete(animal);
 
 		attribute.addFlashAttribute("error", "El animal se ha eliminado correctamente.");
-		
-		log.debug("animal borrado: "+id);
-		
+
+		log.debug("animal borrado: " + id);
+
 		return "redirect:/animal";
 	}
 

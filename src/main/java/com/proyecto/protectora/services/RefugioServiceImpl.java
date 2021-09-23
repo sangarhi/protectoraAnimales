@@ -1,6 +1,7 @@
 package com.proyecto.protectora.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,17 +34,17 @@ public class RefugioServiceImpl implements RefugioService {
 	}
 
 	@Override
-	public Refugio getById(Long id) {
+	public Optional<Refugio> findById(Long id) {
 		
-		Refugio refugio =  refugioRepository.getById(id);
+		Optional<Refugio> refugio =  refugioRepository.findById(id);
 		
 		return refugio;
 	}
 
 	@Override
-	public void delete(Long id) {
+	public void delete(Refugio refugio) {
 
-		refugioRepository.deleteById(id);
+		refugioRepository.delete(refugio);
 
 	}
 

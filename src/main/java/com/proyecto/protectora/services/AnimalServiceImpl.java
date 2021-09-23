@@ -1,6 +1,7 @@
 package com.proyecto.protectora.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.proyecto.protectora.entities.Animal;
+import com.proyecto.protectora.entities.Raza;
 import com.proyecto.protectora.entities.Refugio;
 import com.proyecto.protectora.repositories.AnimalRepository;
 import com.proyecto.protectora.services.interfaces.AnimalService;
@@ -29,12 +31,6 @@ public class AnimalServiceImpl implements AnimalService {
 	}
 
 	@Override
-	public List<Animal> findAnimalByGenero() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public void save(Animal animal) {
 
 		animalRepository.save(animal);
@@ -42,26 +38,18 @@ public class AnimalServiceImpl implements AnimalService {
 	}
 
 	@Override
-	public Animal getById(Long id) {
+	public Optional<Animal> findById(Long id) {
 
-		Animal animal = animalRepository.getById(id);
+		Optional<Animal> animal = animalRepository.findById(id);
 
 		return animal;
 	}
 
 	@Override
-	public void delete(Long id) {
-		try {
-			Animal animal = animalRepository.getById(id);
-			if (animal != null) {
-				animalRepository.delete(animal);
-			} else {
-				log.debug("no habia animal");
-			}
-		} catch (Exception ex) {
-			log.debug(ex.getMessage());
-		}
-
+	public void delete(Animal animal) {
+		
+		animalRepository.delete(animal);
+		
 	}
 
 }

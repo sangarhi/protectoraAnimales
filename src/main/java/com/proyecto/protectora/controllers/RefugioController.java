@@ -1,5 +1,7 @@
 package com.proyecto.protectora.controllers;
 
+import java.util.Optional;
+
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -70,10 +72,16 @@ public class RefugioController {
 
 	@GetMapping("/{id}")
 	public String findRefugio(Model model, @PathVariable("id") Long id) {
-
 		log.debug("findRefugio");
 
-		Refugio refugio = service.getById(id);
+		Optional<Refugio> refugioOpt = this.service.findById(id);
+
+		if (!refugioOpt.isPresent()) {
+			log.error("El id especificado no se encuentra en la bbdd");
+			return "error/error-specific";
+		}
+
+		Refugio refugio = refugioOpt.get();
 
 		model.addAttribute(refugio);
 
@@ -81,11 +89,15 @@ public class RefugioController {
 	}
 
 	@PostMapping("/{id}")
-	public String updateRefugio(Model model, @ModelAttribute Refugio refugio, @PathVariable Long id,
+	public String updateRefugio(Model model, @ModelAttribute Refugio refugio, @PathVariable Long id, BindingResult br,
 			RedirectAttributes attribute) {
 
 		log.debug("updateRefugio");
 
+		if (br.hasErrors()) {
+
+			return "redirect:/refugio/" + id;
+		}
 		service.save(refugio);
 
 		attribute.addFlashAttribute("success", "El refugio se ha modificado correctamente.");
@@ -96,10 +108,18 @@ public class RefugioController {
 
 	@RequestMapping("/r/{id}")
 	public String deleteRefugio(@PathVariable("id") Long id, RedirectAttributes attribute) {
-
 		log.debug("deleteRefugio");
 
-		service.delete(id);
+		Optional<Refugio> refugioOpt = this.service.findById(id);
+
+		if (!refugioOpt.isPresent()) {
+			log.error("El id especificado no se encuentra en la bbdd");
+			return "error/error-specific";
+		}
+
+		Refugio refugio = refugioOpt.get();
+
+		service.delete(refugio);
 
 		attribute.addFlashAttribute("error", "El refugio se ha eliminado correctamente.");
 

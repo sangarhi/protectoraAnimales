@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
@@ -31,8 +32,6 @@ public class Refugio {
 	private Integer numero;
 
 	@NotNull
-	@Min(0)
-	@Max(20)
 	//@Pattern(regexp = "[0-9]{5}")
 	private Integer tamanio;
 

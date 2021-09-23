@@ -1,5 +1,7 @@
 package com.proyecto.protectora.controllers;
 
+import java.util.Optional;
+
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -15,8 +17,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.proyecto.protectora.common.Tamanio;
-import com.proyecto.protectora.common.Tipo;
 import com.proyecto.protectora.entities.Raza;
 import com.proyecto.protectora.services.interfaces.RazaService;
 
@@ -26,6 +26,9 @@ public class RazaController {
 
 	@Autowired
 	RazaService service;
+
+	@Autowired
+	ExceptionController ec;
 
 	Logger log = LoggerFactory.getLogger(Raza.class);
 
@@ -41,20 +44,21 @@ public class RazaController {
 	}
 
 	@PostMapping
-	public String createRaza(@Valid @ModelAttribute Raza raza, Model model, BindingResult br, RedirectAttributes attribute) {
-	
+	public String createRaza(@Valid @ModelAttribute Raza raza, Model model, BindingResult br,
+			RedirectAttributes attribute) {
+
 		log.debug("createRaza");
 		log.debug("Raza" + raza);
 		log.debug("Nombre: " + raza.getNombre());
 		log.debug("Tipo: " + raza.getTipo());
 
-		if(br.hasErrors()) {
+		if (br.hasErrors()) {
+			attribute.addFlashAttribute("error", "Ha habido un error");
 			model.addAttribute("listado", service.findAllRazas());
 			model.addAttribute("raza", raza);
-			
+
 			return "razas";
 		}
-		
 
 		service.save(raza);
 
@@ -65,10 +69,16 @@ public class RazaController {
 
 	@GetMapping("/{id}")
 	public String findRaza(Model model, @PathVariable("id") Long id) {
-
 		log.debug("findRaza");
+		
+		Optional<Raza> razaOpt = this.service.findById(id);
 
-		Raza raza = service.getById(id);
+		if (!razaOpt.isPresent()) {
+			log.error("El id especificado no se encuentra en la bbdd");
+			return "error/error-specific";
+		}
+
+		Raza raza = razaOpt.get();
 
 		model.addAttribute(raza);
 
@@ -76,14 +86,15 @@ public class RazaController {
 	}
 
 	@PostMapping("/{id}")
-	public String updateRaza(Model model, @ModelAttribute Raza raza, @PathVariable Long id, RedirectAttributes attribute) {
+	public String updateRaza(Model model, @ModelAttribute Raza raza, @PathVariable Long id,
+			RedirectAttributes attribute) {
 
 		log.debug("updateRaza");
 
 		service.save(raza);
-		
+
 		attribute.addFlashAttribute("success", "La raza se ha modificado correctamente.");
-		
+
 		return "redirect:/raza/" + id;
 
 	}
@@ -92,8 +103,16 @@ public class RazaController {
 	public String deleteRaza(@PathVariable("id") Long id, RedirectAttributes attribute) {
 
 		log.debug("deleteRaza");
+		Optional<Raza> razaOpt = this.service.findById(id);
 
-		service.delete(id);
+		if (!razaOpt.isPresent()) {
+			log.error("El id especificado no se encuentra en la bbdd");
+			return "error/error-specific";
+		}
+
+		Raza raza = razaOpt.get();
+
+		service.delete(raza);
 		attribute.addFlashAttribute("error", "La raza se ha eliminado correctamente.");
 
 		return "redirect:/raza";
