@@ -3,6 +3,7 @@ package com.proyecto.protectora.entities;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -29,14 +30,13 @@ public class Refugio {
 	private Long id;
 
 	@NotNull
+	@Column(unique=true)
 	private Integer numero;
 
 	@NotNull
-	//@Pattern(regexp = "[0-9]{5}")
 	private Integer tamanio;
 
 	@OneToMany(mappedBy="refugio", cascade = { CascadeType.ALL}, fetch=FetchType.EAGER)
-	 @OnDelete( action = OnDeleteAction.CASCADE )
 	private List<Animal> animal;
 
 	public Refugio() {

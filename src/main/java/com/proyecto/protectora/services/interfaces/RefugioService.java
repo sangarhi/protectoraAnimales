@@ -12,6 +12,8 @@ public interface RefugioService {
 	public void save(Refugio refugio);
 
 	public Optional<Refugio> findById(Long id);
+	
+	public Refugio findByNumeroRefugio(Integer numero);
 
 	public void delete(Refugio refugio);
 

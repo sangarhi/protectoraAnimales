@@ -37,9 +37,9 @@ public class Raza {
 	@Enumerated(value = EnumType.STRING)
 	private Tamanio tamanio;
 
-	@OneToMany(mappedBy = "raza", cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
-	@OnDelete(action = OnDeleteAction.CASCADE)
-	private List<Animal> animal;
+	//@OneToMany(mappedBy = "raza", cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
+	//@OnDelete(action = OnDeleteAction.CASCADE)
+	//private List<Animal> animal;
 
 	public Raza() {
 		super();

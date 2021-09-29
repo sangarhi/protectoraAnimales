@@ -10,29 +10,29 @@
 <body>
 
 	<header th:fragment="header">
-	<nav>
-		<div class="logo">
-			<img th:src="@{/images/logo.PNG}">
-		</div>
-		<ul>
-			<li><a class="active" th:href="@{/}" th:class="${activeUrl=='/' ? 'active' : ''}">Inicio</a></li>
-			<li><a class="active" th:href="@{/refugio}" th:class="${activeUrl=='refugio' ? 'active' : ''}">Refugios</a></li>
-			<li><a class="active" th:href="@{/raza}" th:class="${activeUrl=='raza' ? 'active' : ''}">Razas</a></li>
-			<li><a class="active" th:href="@{/animal}" th:class="${activeUrl=='animal' ? 'active' : ''}">Animales</a></li>
-			
-			
-		</ul>
-	</nav>
-
-	<div class="hero-image">
-		<div class="hero-text">
-			<span>ADOPTA</span>
-			<p>No compres</p>
-		</div>
-	</div>
+		<nav>
+			<div class="logo">
+				<img th:src="@{/images/logo.PNG}">
+			</div>
+			<ul>
+				<li><a class="active" th:href="@{/}" th:class="${activeUrl=='/' ? 'active' : ''}">Inicio</a></li>
+				<li><a class="active" th:href="@{/refugio}" th:class="${activeUrl=='refugio' ? 'active' : ''}">Refugios</a></li>
+				<li><a class="active" th:href="@{/raza}" th:class="${activeUrl=='raza' ? 'active' : ''}">Razas</a></li>
+				<li><a class="active" th:href="@{/animal}" th:class="${activeUrl=='animal' ? 'active' : ''}">Animales</a></li>
+				
+				
+			</ul>
+		</nav>
 	
-	<div class="success" th:if="${success}"><label th:text="${success}"></label></div>
-	<div class="error" th:if="${error}"><label th:text="${error}"></label></div>
+		<div class="hero-image">
+			<div class="hero-text">
+				<span>ADOPTA</span>
+				<p>No compres</p>
+			</div>
+		</div>
+		
+		<div class="success" th:if="${success}"><label th:text="${success}"></label></div>
+		<div class="error" th:if="${error}"><label th:text="${error}"></label></div>
 	</header>
 	
 	<script defer

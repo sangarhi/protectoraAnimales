@@ -42,11 +42,20 @@ public class RefugioServiceImpl implements RefugioService {
 	}
 
 	@Override
+	public Refugio findByNumeroRefugio(Integer numero) {
+		
+		Refugio resultado = refugioRepository.findByNumeroRefugio(numero);
+		return resultado;
+	}
+	
+	@Override
 	public void delete(Refugio refugio) {
 
 		refugioRepository.delete(refugio);
 
 	}
+
+
 
 	
 

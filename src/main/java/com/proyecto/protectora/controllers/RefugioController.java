@@ -24,19 +24,24 @@ import com.proyecto.protectora.services.RefugioServiceImpl;
 @RequestMapping("/refugio")
 public class RefugioController {
 
-	/*
-	 * @Autowired RefugioServiceImpl service;
-	 */
 	Logger log = LoggerFactory.getLogger(Refugio.class);
 
 	@Autowired
 	RefugioServiceImpl service;
 
 	@GetMapping
-	public String getRefugios(Model model) {
+	public String getRefugios(Model model, RedirectAttributes attribute) {
 
 		log.debug("getRefugios");
-
+		if(attribute.getFlashAttributes().get("success") != null)
+		{
+			log.debug(attribute.getFlashAttributes().get("success").toString());
+		}
+		else
+		{
+			log.debug("atributes: "+attribute.getFlashAttributes().size());
+		}
+		
 		model.addAttribute("listado", service.findAllRefugios());
 		model.addAttribute("refugio", new Refugio());
 
@@ -49,21 +54,19 @@ public class RefugioController {
 
 		log.debug("createRefugio");
 
-		if (br.hasErrors()) {
-
+		Refugio existe = service.findByNumeroRefugio(refugio.getNumero());
+			
+		if (br.hasErrors() || existe != null) {
+			log.error("Error: número de refugio existente");
 			model.addAttribute("listado", service.findAllRefugios());
-			model.addAttribute(refugio);
-
+			model.addAttribute("refugio", refugio);
+			if(existe != null)
+				model.addAttribute("error", "El número de refugio ya existe");
 			return "refugios";
 		}
 
-		/*
-		 * if(refugio != null) { if(refugio.getNombre() != null) {
-		 * //refugio.getNombre().length() > 3 } }
-		 */
 
 		service.save(refugio);
-
 		attribute.addFlashAttribute("success", "El refugio se ha creado con éxito.");
 
 		return "redirect:/refugio";

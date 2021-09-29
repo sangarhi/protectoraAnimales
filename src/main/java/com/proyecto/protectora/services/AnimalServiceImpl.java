@@ -32,6 +32,8 @@ public class AnimalServiceImpl implements AnimalService {
 
 	@Override
 	public void save(Animal animal) {
+		
+		animal.setNombre(animal.getNombre().toUpperCase());
 
 		animalRepository.save(animal);
 

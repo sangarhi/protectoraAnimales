@@ -11,9 +11,6 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-
 import com.proyecto.protectora.common.Genero;
 
 @Entity
@@ -47,9 +44,9 @@ public class Animal {
 		this.id = id;
 		this.nombre = nombre;
 		this.genero = genero;
-		/*
-		 * this.refugio = refugio; this.raza = raza;
-		 */
+		this.refugio = refugio;
+		this.raza = raza;
+
 	}
 
 	public Long getId() {
